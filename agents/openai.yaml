@@ -1,0 +1,5 @@
+interface:
+  display_name: "Chinese Novelist"
+  short_description: "从零创作完整长篇中文小说，真人手写文风"
+  default_prompt: "Use $chinese-novelist to create a full-length Chinese novel with authentic writing style"
+
