@@ -191,6 +191,8 @@ chinese-novelist/
 │       ├── character-building.md
 │       ├── character-template.md
 │       ├── content-expansion.md
+       ├── narrative-craft.md          # 叙事技法精要
+       ├── pacing-control.md           # 节奏控制与情绪工程
 │       ├── context-management.md     # 三层记忆架构+修订沿用策略
 │       ├── dialogue-writing.md
 │       ├── hook-techniques.md
@@ -371,6 +373,13 @@ Agent 根据五项输入自主生成：
 - `plot-control-dashboard.md`
 
 ### 从 Phase 3 引用
+- 
+arrative-craft.md / pacing-control.md — 叙事技法+节奏控制（每章必读）
+- chapter-guide.md / chapter-template.md
+- hook-techniques.md / dialogue-writing.md
+- content-expansion.md / context-management.md
+
+### 从修订模式引用
 - `chapter-guide.md` / `chapter-template.md`
 - `hook-techniques.md` / `dialogue-writing.md`
 - `content-expansion.md` / `context-management.md`
