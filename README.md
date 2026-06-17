@@ -11,6 +11,8 @@
 - **三层记忆系统**：L1 阶段总结 + L2 章节记忆 + L3 上章原文，节省 96% 上下文 Token
 - **智能校验修复**：七维自动校验（字数/伏笔/时间线/人设/文风/能力路径/核心矛盾），不合格章节自动重写
 - **三级修订模式**：支持设定生成后预修改、创作中途边改边写、完结后存量修改
+- **章节评分系统**：多维度自动评估章节质量，提供优化建议
+- **数据持久化**： SQLite 数据库存储项目数据，支持历史版本管理
 
 ---
 
@@ -71,6 +73,8 @@ chinese-novelist/
 ├── agents/
 │   └── openai.yaml                   # Codex/Trae UI 元数据
 ├── assets/                           # 截图素材
+├── data/
+│   └── novel.db                      # SQLite 数据库（项目数据持久化）
 ├── revision-rules.yaml               # 三级修订约束规则配置
 ├── references/
 │   ├── architecture.md               # 架构文档
@@ -81,7 +85,7 @@ chinese-novelist/
 │   │   ├── phase3-writing.md         # 疯狂创作
 │   │   ├── phase4-validation.md      # 自动校验与修复
 │   │   ├── revision-mode.md          # 三级修订流程
-│   │   └── shared-infrastructure.md  # 共享机制
+│   │   └── shared-infrastructure.md # 共享机制
 │   └── guides/                       # 写作指南
 │       ├── chapter-guide.md
 │       ├── chapter-template.md
@@ -91,15 +95,22 @@ chinese-novelist/
 │       ├── context-management.md     # 三层记忆架构
 │       ├── dialogue-writing.md
 │       ├── hook-techniques.md
+│       ├── narrative-craft.md        # 叙事技巧指南
 │       ├── outline-template.md
+│       ├── pacing-control.md         # 节奏控制指南
 │       ├── plot-control-dashboard.md
 │       ├── plot-structures.md
 │       └── title-guide.md
-└── scripts/                          # 校验脚本
+└── scripts/                          # 校验与管理脚本
     ├── check_chapter_wordcount.py    # 字数检查
     ├── check_ai_style.py             # AI风格检测
     ├── check_foreshadowing.py        # 伏笔检查
-    └── validate_all.py               # 全量校验
+    ├── check_project_integrity.py    # 项目完整性检查
+    ├── db_manager.py                 # 数据库管理
+    ├── score_chapter.py              # 章节评分
+    ├── suggest_polish.py             # 优化建议
+    ├── validate_all.py               # 全量校验
+    └── common.py                     # 公共模块
 ```
 
 ---
@@ -114,6 +125,30 @@ chinese-novelist/
 帮我检查一下世界观有没有逻辑冲突           # 设定校验
 帮我调整第2卷的大纲                      # 修改大纲
 ```
+
+---
+
+## 校验脚本说明
+
+| 脚本 | 功能 |
+|------|------|
+| `check_chapter_wordcount.py` | 检查章节字数是否达标（3000-5000字） |
+| `check_ai_style.py` | 检测并清理 AI 风格痕迹 |
+| `check_foreshadowing.py` | 检查伏笔铺设与回收完整性 |
+| `check_project_integrity.py` | 检查项目文件结构完整性 |
+| `score_chapter.py` | 多维度章节质量评分 |
+| `suggest_polish.py` | 生成章节优化建议 |
+| `validate_all.py` | 执行全部校验项 |
+
+---
+
+## 写作模式
+
+| 模式 | 适用场景 | 说明 |
+|------|---------|------|
+| 逐章串行 | 10-20章短中篇 | 主 Agent 自己逐章写，全程无中断 |
+| 子 Agent 并行 | 30-50章中长篇 | 分批派生子 Agent，批次内串行、批次间并行 |
+| Agent Teams | 复杂项目 | 多 Agent 协作，通过 TaskList 分配任务 |
 
 ---
 
